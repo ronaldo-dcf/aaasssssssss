@@ -1,0 +1,90 @@
+include <iostream>
+using  namespace  std;
+
+class Nodo{
+public: 
+	int dato;
+	Nodo* izq,*der;
+	Nodo(int d) {
+		dato = d;
+		izq = der = NULL;
+	}
+	void mostrar() {
+		cout << "(" << dato << ")";
+	}
+
+};
+class ArbolB {
+private:
+	Nodo* raiz;
+public: 
+	ArbolB() {
+		raiz = NULL;
+	}
+	void insercion(Nodo*&r,int dato) {
+		if (r == NULL) {
+			r = new Nodo(dato);
+		}else if(dato < r->dato) {
+			insercion(r->izq, dato);
+		}
+		else {
+			insercion(r->der, dato);
+		}
+
+	}
+	void insertar(int dato) {
+		insercion(raiz, dato);
+	}
+	void inOr(Nodo* r)
+	{
+		if (r != NULL) {
+			inOr(r->izq);
+			r->mostrar();
+			inOr(r->der);
+
+		}
+	}
+	void inOrden() {
+		inOr(raiz);
+	}
+	void preOr(Nodo* r) {
+		if (r != NULL) {
+			r->mostrar();
+			preOr(r->izq);
+			preOr(r->der);
+		}
+	}
+	void preOrden() {
+		preOr(raiz);
+	}
+	
+	void postOr(Nodo* r){
+		if (r != NULL) {
+			postOr(raiz->izq);
+			postOr(raiz->der);
+			r->mostrar();
+		}
+	}
+	void postOrden() {
+		postOr(raiz);
+	}
+	
+	
+};
+int main() {
+	ArbolB  a;
+	a.insertar(15);
+	a.insertar(6);
+	a.insertar(20);
+	a.insertar(4);
+	a.insertar(10);
+	a.insertar(17);
+	a.insertar(22);
+	cout << "InOrden" << endl;
+	a.inOrden();
+	cout << "\nPreOrden :" << endl;
+	a.preOrden();
+	cout << "\nPostOrden" << endl;
+	a.postOrden();
+	
+}
